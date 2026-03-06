@@ -14,7 +14,7 @@ It contains my README.md which serves as my public GitHub profile page.
 
 ## Repo Structure
 - /README.md — GitHub profile page (public-facing)
-- /.claude/ — Claude Code configuration (skills, hooks, commands, agents, rules)
+- /.claude/ — Claude Code configuration (skills, hooks, rules)
 - /.mcp.json — MCP server configurations
 
 ## Conventions
@@ -31,17 +31,28 @@ It contains my README.md which serves as my public GitHub profile page.
 5. **Format with ruff** — Python files are auto-formatted via PostToolUse hook
 
 ## Available Skills
-- `planning` — Structured task decomposition (Phase: Understand → Plan → Validate → Execute)
+
+### Core Workflow
+- `planning` — Structured task decomposition (Understand → Plan → Validate → Execute)
 - `tdd` — Red-green-refactor test-driven development
 - `debugging` — Systematic root cause analysis
 - `code-review` — Security, quality, and correctness checklist
-- `python-agent-scaffold` — Scaffold new Python AI agent projects
+- `git-workflow` — Standardized commits, branches, and PRs
 
-## Available Commands
-- `/plan` — Break down a task into steps
-- `/review` — Review current changes for issues
-- `/test` — Run test suite and analyze results
-- `/debug [issue]` — Debug a specific issue systematically
+### Code Quality
+- `refactor` — Systematic refactoring with safety guarantees
+- `security-audit` — Deep OWASP/CVE vulnerability scanning
+- `explain` — Code explanation and onboarding walkthroughs
+- `docs-gen` — Auto-generate documentation from code
+
+### Building
+- `python-agent-scaffold` — Scaffold new Python AI agent projects
+- `mcp-builder` — Guide for creating MCP servers (Python/TypeScript)
+- `skill-creator` — Create, test, and iterate on new skills (from Anthropic)
+
+### Built-in (ships with Claude Code)
+- `claude-api` — Build apps with Claude API / Anthropic SDK / Agent SDK
+- `simplify` — Review changed code for reuse, quality, and efficiency
 
 ## MCP Servers
 - **Context7** — Fetches real, current library documentation at query time
