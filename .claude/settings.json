@@ -1,3 +1,39 @@
 {
-  "$schema": "https://json.schemastore.org/claude-code-settings.json"
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(ruff *)",
+      "Bash(pytest *)",
+      "Bash(python -m pytest *)",
+      "Bash(git status*)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "Bash(git branch*)",
+      "Bash(git stash*)",
+      "Bash(ls *)",
+      "Bash(pip list*)",
+      "Bash(pip show*)",
+      "Bash(uv run *)",
+      "Read",
+      "Glob",
+      "Grep",
+      "Skill"
+    ],
+    "deny": [
+      "Bash(curl * | bash*)",
+      "Bash(wget * | bash*)",
+      "Bash(rm -rf /*)",
+      "Bash(rm -rf ~*)",
+      "Bash(> /dev/sda*)",
+      "Bash(mkfs.*)",
+      "Bash(dd if=*)",
+      "Bash(:(){:|:&};:*)",
+      "Bash(chmod -R 777*)",
+      "Bash(eval *)",
+      "Bash(git push --force*)",
+      "Bash(git reset --hard*)",
+      "Bash(git clean -fd*)",
+      "Bash(pip install * --break-system-packages*)"
+    ]
+  }
 }
