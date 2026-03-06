@@ -6,7 +6,15 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash -c 'INPUT=$(cat); CMD=$(echo \"$INPUT\" | jq -r \".tool_input.command // empty\"); if echo \"$CMD\" | grep -qiE \"(rm -rf /|rm -rf ~|> /dev/sd|mkfs\\.|dd if=|chmod -R 777|curl.*\\|.*bash|wget.*\\|.*bash)\"; then echo \"BLOCKED: Dangerous command detected: $CMD\" >&2; exit 2; fi'"
+            "command": "bash -c 'CMD=$(cat | jq -r \".tool_input.command // empty\"); [ -z \"$CMD\" ] && exit 0; if echo \"$CMD\" | grep -qiE \"(^|;\\s*|&&\\s*|\\|\\|\\s*|\\|\\s*)rm\\s\" && echo \"$CMD\" | grep -qiE \"(^|\\s)-[a-zA-Z]*[rR]|--recursive\" && echo \"$CMD\" | grep -qiE \"(^|\\s)-[a-zA-Z]*[fF]|--force\"; then echo \"BLOCKED: Destructive rm -rf detected. Use targeted deletes instead.\" >&2; exit 2; fi'"
+          },
+          {
+            "type": "command",
+            "command": "bash -c 'CMD=$(cat | jq -r \".tool_input.command // empty\"); [ -z \"$CMD\" ] && exit 0; if echo \"$CMD\" | grep -qE \"git\\s+push.*(main|master)\"; then echo \"BLOCKED: Do not push directly to main/master. Use feature branches.\" >&2; exit 2; fi'"
+          },
+          {
+            "type": "command",
+            "command": "bash -c 'CMD=$(cat | jq -r \".tool_input.command // empty\"); [ -z \"$CMD\" ] && exit 0; if echo \"$CMD\" | grep -qiE \"(curl|wget).*\\|.*bash\"; then echo \"BLOCKED: Piping downloads to bash is dangerous.\" >&2; exit 2; fi'"
           }
         ]
       }
@@ -17,18 +25,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash -c 'INPUT=$(cat); FILE=$(echo \"$INPUT\" | jq -r \".tool_input.file_path // empty\"); if [ -n \"$FILE\" ] && echo \"$FILE\" | grep -qE \"\\.py$\"; then if command -v ruff &>/dev/null; then ruff check --fix \"$FILE\" 2>/dev/null; ruff format \"$FILE\" 2>/dev/null; fi; fi'"
-          }
-        ]
-      }
-    ],
-    "Notification": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash -c 'echo \"[Claude Code] Task completed\" || true'"
+            "command": "bash -c 'FILE=$(cat | jq -r \".tool_input.file_path // empty\"); [ -z \"$FILE\" ] && exit 0; if echo \"$FILE\" | grep -qE \"\\.py$\"; then if command -v ruff &>/dev/null; then ruff check --fix \"$FILE\" 2>/dev/null; ruff format \"$FILE\" 2>/dev/null; fi; fi'"
           }
         ]
       }

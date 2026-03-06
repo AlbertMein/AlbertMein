@@ -20,20 +20,41 @@
       "Skill"
     ],
     "deny": [
+      "Bash(rm -rf *)",
+      "Bash(rm -fr *)",
+      "Bash(sudo *)",
+      "Bash(mkfs *)",
+      "Bash(dd *)",
       "Bash(curl * | bash*)",
+      "Bash(curl *|bash*)",
       "Bash(wget * | bash*)",
-      "Bash(rm -rf /*)",
-      "Bash(rm -rf ~*)",
+      "Bash(wget *|bash*)",
       "Bash(> /dev/sda*)",
-      "Bash(mkfs.*)",
-      "Bash(dd if=*)",
       "Bash(:(){:|:&};:*)",
       "Bash(chmod -R 777*)",
       "Bash(eval *)",
       "Bash(git push --force*)",
+      "Bash(git push *--force*)",
       "Bash(git reset --hard*)",
       "Bash(git clean -fd*)",
-      "Bash(pip install * --break-system-packages*)"
+      "Bash(pip install * --break-system-packages*)",
+
+      "Edit(~/.bashrc)",
+      "Edit(~/.zshrc)",
+      "Edit(~/.profile)",
+      "Edit(~/.ssh/**)",
+
+      "Read(~/.ssh/**)",
+      "Read(~/.gnupg/**)",
+      "Read(~/.aws/**)",
+      "Read(~/.azure/**)",
+      "Read(~/.config/gh/**)",
+      "Read(~/.git-credentials)",
+      "Read(~/.docker/config.json)",
+      "Read(~/.kube/**)",
+      "Read(~/.npmrc)",
+      "Read(~/.pypirc)",
+      "Read(~/.netrc)"
     ]
   }
 }
