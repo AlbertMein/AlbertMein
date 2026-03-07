@@ -1,0 +1,34 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c 'CMD=$(cat | jq -r \".tool_input.command // empty\"); [ -z \"$CMD\" ] && exit 0; if echo \"$CMD\" | grep -qiE \"(^|;\\s*|&&\\s*|\\|\\|\\s*|\\|\\s*)rm\\s\" && echo \"$CMD\" | grep -qiE \"(^|\\s)-[a-zA-Z]*[rR]|--recursive\" && echo \"$CMD\" | grep -qiE \"(^|\\s)-[a-zA-Z]*[fF]|--force\"; then echo \"BLOCKED: Destructive rm -rf detected. Use targeted deletes instead.\" >&2; exit 2; fi'"
+          },
+          {
+            "type": "command",
+            "command": "bash -c 'CMD=$(cat | jq -r \".tool_input.command // empty\"); [ -z \"$CMD\" ] && exit 0; if echo \"$CMD\" | grep -qE \"git\\s+push.*(main|master)\"; then echo \"BLOCKED: Do not push directly to main/master. Use feature branches.\" >&2; exit 2; fi'"
+          },
+          {
+            "type": "command",
+            "command": "bash -c 'CMD=$(cat | jq -r \".tool_input.command // empty\"); [ -z \"$CMD\" ] && exit 0; if echo \"$CMD\" | grep -qiE \"(curl|wget).*\\|.*bash\"; then echo \"BLOCKED: Piping downloads to bash is dangerous.\" >&2; exit 2; fi'"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c 'FILE=$(cat | jq -r \".tool_input.file_path // empty\"); [ -z \"$FILE\" ] && exit 0; if echo \"$FILE\" | grep -qE \"\\.py$\"; then if command -v ruff &>/dev/null; then ruff check --fix \"$FILE\" 2>/dev/null; ruff format \"$FILE\" 2>/dev/null; fi; fi'"
+          }
+        ]
+      }
+    ]
+  }
+}
