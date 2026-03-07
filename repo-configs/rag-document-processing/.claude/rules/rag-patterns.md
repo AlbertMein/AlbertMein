@@ -1,0 +1,11 @@
+## RAG Patterns
+- Chunk size matters: start at 1000 tokens / 200 overlap, tune from there
+- Use RecursiveCharacterTextSplitter for general text, MarkdownHeaderTextSplitter for markdown
+- Always preserve metadata (source, page number, section) through the pipeline
+- Use hybrid search (keyword + semantic) for better recall
+- Implement reranking (Cohere, cross-encoder) for better precision
+- Evaluate with: faithfulness, answer relevancy, context precision, context recall
+- Use RAGAS or DeepEval frameworks for systematic evaluation
+- Cache embeddings — never re-embed unchanged documents
+- Use parent document retriever pattern for better context
+- For production: always add a citation/source reference in the output
