@@ -1,50 +1,43 @@
-# Hey, I'm Albert 👋
+# Albert Mein
 
-I'm into AI automation — basically figuring out how to make LLMs and agents do useful work instead of just chatting. Most of my stuff is in Python.
+I build AI automation systems — mostly LLM-powered agents, retrieval pipelines, and multi-agent architectures. Everything here is Python.
 
-## What I'm working on
+## What I'm focused on
 
-Right now I'm exploring a few different angles:
+I spend most of my time on the applied side of LLMs: getting them to reliably do real work, not just generate text. That means a lot of agent orchestration, retrieval-augmented generation, and figuring out how to make these systems actually production-ready.
 
-- **LangChain** for building chains and agents that can actually handle real tasks
-- **CrewAI** for getting multiple agents to work together (still figuring this one out honestly)
-- **AutoGen** because Microsoft's approach to multi-agent conversations is pretty interesting
-- **RAG pipelines** — hooking up LLMs to real documents so they stop making things up
-- Building out reusable tools for **data extraction** and **API integrations**
+**Current areas:**
+- Agent orchestration with LangChain/LangGraph and AutoGen
+- Multi-agent coordination using CrewAI
+- RAG pipelines — document ingestion, chunking strategies, hybrid search
+- Unified LLM provider interfaces (OpenAI, Anthropic, Gemini)
+- Structured data extraction from unstructured sources
 
-## My repos
+## Repositories
 
-Here's what I've got going on — most of these are works in progress:
-
-| Repo | What it's for |
+| | |
 |---|---|
-| [langchain-ai-automation](https://github.com/AlbertMein/langchain-ai-automation) | LangChain agents, chains, RAG pipelines |
-| [crewai-multi-agent-systems](https://github.com/AlbertMein/crewai-multi-agent-systems) | Multi-agent setups with CrewAI |
-| [autogen-agent-framework](https://github.com/AlbertMein/autogen-agent-framework) | Playing around with AutoGen conversations |
-| [rag-document-processing](https://github.com/AlbertMein/rag-document-processing) | RAG stuff — vector DBs, embeddings, search |
-| [ai-api-integration](https://github.com/AlbertMein/ai-api-integration) | Wrappers for OpenAI, Claude, Gemini, etc. |
-| [data-extraction-automation](https://github.com/AlbertMein/data-extraction-automation) | Scraping + LLM-powered data extraction |
-| [ai-automation-templates](https://github.com/AlbertMein/ai-automation-templates) | Starter templates so I don't keep rewriting boilerplate |
+| [`langchain-ai-automation`](https://github.com/AlbertMein/langchain-ai-automation) | LangChain agents, LCEL chains, and RAG pipelines |
+| [`crewai-multi-agent-systems`](https://github.com/AlbertMein/crewai-multi-agent-systems) | Multi-agent task execution with CrewAI |
+| [`autogen-agent-framework`](https://github.com/AlbertMein/autogen-agent-framework) | Conversational agent patterns with Microsoft AutoGen |
+| [`rag-document-processing`](https://github.com/AlbertMein/rag-document-processing) | Document loaders, vector stores, retrieval strategies |
+| [`ai-api-integration`](https://github.com/AlbertMein/ai-api-integration) | Provider-agnostic LLM API wrappers with retry, caching, cost tracking |
+| [`data-extraction-automation`](https://github.com/AlbertMein/data-extraction-automation) | Web scraping + LLM-powered structured extraction |
+| [`ai-automation-templates`](https://github.com/AlbertMein/ai-automation-templates) | Reusable project scaffolds for AI automation work |
 
-## Tools I use a lot
+## Stack
 
-**Frameworks:** LangChain, CrewAI, AutoGen, LlamaIndex
+**Agent frameworks** — LangChain, LangGraph, CrewAI, AutoGen, LlamaIndex
 
-**LLM APIs:** OpenAI, Anthropic, Google AI
+**LLM providers** — OpenAI, Anthropic, Google AI (Gemini)
 
-**Vector DBs:** Pinecone, FAISS, Weaviate
+**Retrieval & search** — Pinecone, FAISS, Weaviate, pgvector
 
-**Other stuff:** Python, FastAPI, Docker, Pandas
+**Infrastructure** — Python 3.10+, FastAPI, Docker, Pydantic, httpx
 
-## What I'm learning
+## Currently working through
 
-Honestly, this space moves so fast it's hard to keep up. Currently trying to get better at:
-
-- Agent memory and long-running tasks
-- Making RAG actually work well (it's harder than it looks)
-- Keeping API costs from getting out of hand
-- Deploying this stuff in production without everything breaking
-
-## Get in touch
-
-If you're working on similar things or want to collaborate, feel free to open an issue on any of my repos or reach out. Always happy to chat about this stuff.
+- Long-running agent tasks with persistent memory
+- Evaluation frameworks for RAG accuracy (beyond just vibes)
+- Cost optimization at scale — batching, caching, model routing
+- Moving agent prototypes into production-grade services
