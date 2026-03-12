@@ -1,6 +1,6 @@
 # Albert Mein
 
-I build AI automation systems — mostly LLM-powered agents, retrieval pipelines, and multi-agent architectures. Everything here is Python.
+I build AI automation systems, mostly LLM-powered agents, retrieval pipelines, and multi-agent setups. Everything here is Python.
 
 ## What I'm focused on
 
@@ -9,7 +9,7 @@ I spend most of my time on the applied side of LLMs: getting them to reliably do
 **Current areas:**
 - Agent orchestration with LangChain/LangGraph and AutoGen
 - Multi-agent coordination using CrewAI
-- RAG pipelines — document ingestion, chunking strategies, hybrid search
+- RAG pipelines: document ingestion, chunking strategies, hybrid search
 - Unified LLM provider interfaces (OpenAI, Anthropic, Gemini)
 - Structured data extraction from unstructured sources
 
@@ -27,17 +27,17 @@ I spend most of my time on the applied side of LLMs: getting them to reliably do
 
 ## Stack
 
-**Agent frameworks** — LangChain, LangGraph, CrewAI, AutoGen, LlamaIndex
+**Agent frameworks:** LangChain, LangGraph, CrewAI, AutoGen, LlamaIndex
 
-**LLM providers** — OpenAI, Anthropic, Google AI (Gemini)
+**LLM providers:** OpenAI, Anthropic, Google AI (Gemini)
 
-**Retrieval & search** — Pinecone, FAISS, Weaviate, pgvector
+**Retrieval & search:** Pinecone, FAISS, Weaviate, pgvector
 
-**Infrastructure** — Python 3.10+, FastAPI, Docker, Pydantic, httpx
+**Infrastructure:** Python 3.10+, FastAPI, Docker, Pydantic, httpx
 
 ## Currently working through
 
 - Long-running agent tasks with persistent memory
 - Evaluation frameworks for RAG accuracy (beyond just vibes)
-- Cost optimization at scale — batching, caching, model routing
+- Cost optimization at scale: batching, caching, model routing
 - Moving agent prototypes into production-grade services
