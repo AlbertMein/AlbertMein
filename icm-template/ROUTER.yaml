@@ -1,0 +1,60 @@
+# ROUTER.yaml — Stage Transition DAG
+# Defines execution order, branching, parallelism, and feedback loops.
+# The folder numbering is the DEFAULT path. This file defines ALL paths.
+
+stages:
+  01-research:
+    next: 02-analyze
+    # Conditional branch: skip analysis if research is conclusive
+    branch_if:
+      condition: output_contains("skip_analysis")
+      then: 03-parallel
+    max_retries: 2
+    on_fail: fallback
+
+  02-analyze:
+    next: 03-parallel
+    max_retries: 1
+    on_fail: fallback
+
+  03-parallel:
+    mode: parallel
+    sub_stages:
+      - 03a-draft-copy
+      - 03b-draft-visuals
+    join: all                    # wait for ALL sub-stages before proceeding
+    next: 04-review
+
+  04-review:
+    next: 05-production
+    reject_to: 03-parallel       # feedback loop — redo drafts with review notes
+    max_rejections: 2            # give up after 2 round-trips
+
+  05-production:
+    next: done
+
+# ──────────────────────────────────────
+# PATTERNS YOU CAN USE
+# ──────────────────────────────────────
+#
+# LINEAR (default):
+#   next: <stage-name>
+#
+# CONDITIONAL BRANCH:
+#   branch_if:
+#     condition: <expression>
+#     then: <stage-name>
+#
+# PARALLEL GROUP:
+#   mode: parallel
+#   sub_stages: [a, b, c]
+#   join: all | any              # all = wait for every sub-stage
+#                                # any = proceed when first completes
+#
+# FEEDBACK LOOP:
+#   reject_to: <stage-name>     # route back on failure
+#   max_rejections: <n>          # prevent infinite loops
+#
+# ERROR HANDLING:
+#   max_retries: <n>
+#   on_fail: fallback | skip | halt

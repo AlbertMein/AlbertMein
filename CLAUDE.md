@@ -16,6 +16,7 @@ It contains my README.md which serves as my public GitHub profile page.
 - /README.md — GitHub profile page (public-facing)
 - /.claude/ — Claude Code configuration (skills, hooks, rules)
 - /.mcp.json — MCP server configurations
+- /icm-template/ — Extended ICM workspace template (see below)
 
 ## Conventions
 - Keep README.md professional but approachable (matches my voice)
@@ -57,6 +58,46 @@ It contains my README.md which serves as my public GitHub profile page.
 ## MCP Servers
 - **Context7** — Fetches real, current library documentation at query time
 - **Sequential Thinking** — Structured step-by-step reasoning for complex problems
+
+## Extended ICM — Default Project Structure
+
+**IMPORTANT: When scaffolding any new AI agent project, multi-stage pipeline, or content workflow, ALWAYS use the Extended ICM structure.** The template lives at `/icm-template/` in this repo. Copy it as the starting point and customize stages for the specific project.
+
+### Structure Rules (always follow)
+1. **Every workspace gets**: `CONTEXT.md` (root), `ROUTER.yaml`, `env.example`
+2. **Every stage gets**: `CONTEXT.md` (contract), `GATE.md` (validation), `references/`, `output/`
+3. **Critical stages get**: `fallback/` directory with recovery instructions
+4. **Parallel work uses**: numbered sub-stages (`03a-`, `03b-`) inside a parent parallel stage
+5. **Infrastructure directories**: `_config/`, `_tools/`, `_state/`, `_logs/`, `shared/`, `skills/`, `setup/`
+
+### ROUTER.yaml Patterns
+- `next:` — linear flow (default)
+- `branch_if:` — conditional routing based on output content
+- `mode: parallel` + `sub_stages:` — concurrent execution with fork/join
+- `reject_to:` — feedback loops (review rejects back to drafting)
+- `max_retries:` / `max_rejections:` — prevent infinite loops
+- `on_fail:` — fallback | skip | halt
+
+### GATE.md at Every Stage
+- Entry conditions: what must exist before the stage starts
+- Exit criteria: what the output must satisfy before handoff
+- On failure: retry, then fallback, then log
+
+### Key Principles (from Van Clief's ICM, extended)
+- Load ONLY the current stage's CONTEXT.md — never preload all stages
+- Every piece of information lives in exactly one place
+- One-way references only — stages point forward, never backward
+- `_state/variables.yaml` tracks cross-stage variables and flags
+- `_logs/runs/` tracks token usage, cost, and timing per run
+- `_state/checkpoints/` enables resuming interrupted workflows
+
+### Customizing for a Project
+1. Copy `/icm-template/` to the new project root
+2. Run `setup/questionnaire.md` to configure `_config/`
+3. Rename/add/remove stages to match the workflow (keep numbering)
+4. Update `ROUTER.yaml` to define the stage DAG
+5. Write stage-specific CONTEXT.md contracts
+6. Add GATE.md entry/exit criteria for each stage
 
 ## Security
 - Dangerous commands are blocked via PreToolUse hooks
