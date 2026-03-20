@@ -41,3 +41,24 @@ I spend most of my time on the applied side of LLMs: getting them to reliably do
 - Evaluation frameworks for RAG accuracy (beyond just vibes)
 - Cost optimization at scale: batching, caching, model routing
 - Moving agent prototypes into production-grade services
+
+## ICM File Structure Reference
+
+I've been exploring Jake Van Clief's [Interpreted Context Methodology](https://arxiv.org/abs/2603.16021) — using folder structure as agentic architecture instead of framework-level orchestration. One agent, sequential stages, markdown contracts at every level.
+
+![ICM File Structure](icm-file-structure.svg)
+
+### Extended ICM — Filling the Gaps
+
+Van Clief's core principles are sound, but the original structure assumes linear, sequential workflows. Real agent pipelines need conditional branching, parallel execution, feedback loops, persistent state, tool integration, and observability. This is my take on extending ICM for production use while keeping the filesystem-first philosophy intact.
+
+**What's added:**
+- **`ROUTER.yaml`** — Stage transition DAG with conditional branches, parallel groups, feedback loops, and retry limits. This is the piece ICM left implicit.
+- **`GATE.md`** per stage — Entry/exit validation criteria. A stage doesn't start until its gate passes, and doesn't hand off until its output meets quality checks.
+- **`fallback/`** directories — Error recovery paths when a stage fails, instead of silent failure.
+- **Parallel stage groups** (`03-parallel/` with `03a-`, `03b-` sub-stages) — Concurrent execution with fork/join semantics defined in the parent CONTEXT.md.
+- **`_tools/`** — Tool definitions (web search, code execution, API calls) as markdown contracts, giving the agent capabilities beyond text generation.
+- **`_state/`** — Persistent memory (`memory.jsonl`), cross-stage variables (`variables.yaml`), and checkpoints for resuming interrupted runs.
+- **`_logs/`** — Per-run observability: token usage, cost tracking, timing, and error traces.
+
+![Extended ICM Structure](icm-extended-structure.svg)

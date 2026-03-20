@@ -1,0 +1,19 @@
+# Cross-Stage Variables
+# Updated by stages as they complete. Read by downstream stages and GATE.md checks.
+
+project:
+  status: not_started          # not_started | in_progress | completed | failed
+  current_stage: null
+  started_at: null
+
+flags:
+  analysis_skipped: false
+  production_incomplete: false
+
+review:
+  rejection_count: 0
+  last_rejection_reason: null
+
+metrics:
+  total_tokens: 0
+  estimated_cost_usd: 0.0
