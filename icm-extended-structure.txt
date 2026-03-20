@@ -1,0 +1,227 @@
+
+══════════════════════════════════════════════════════════════════════════════════
+                    EXTENDED ICM — FILE STRUCTURE MAP
+          Van Clief's Principles + Production-Grade Additions
+══════════════════════════════════════════════════════════════════════════════════
+
+
+  workspace/
+  │
+  ├── CONTEXT.md                          Root contract + project overview
+  ├── ROUTER.yaml           ✦ NEW        Stage DAG: branches, parallels, loops
+  ├── env.example            ✦ NEW        Environment variable template
+  │
+  │
+  │   ┌─────────────────────────────────────────────────────────────────────┐
+  │   │  INFRASTRUCTURE (left of stages, available to all)                 │
+  │   │                                                                     │
+  │   │  _config/                         Brand, voice, design system       │
+  │   │  │  └── ...                       Configured once, reused everywhere│
+  │   │  │                                                                  │
+  │   │  _tools/              ✦ NEW       Tool definitions for the agent    │
+  │   │  │  ├── CONTEXT.md                Tool routing rules                │
+  │   │  │  ├── web-search.md             Each tool = markdown contract     │
+  │   │  │  ├── code-exec.md                                                │
+  │   │  │  └── api-call.md                                                 │
+  │   │  │                                                                  │
+  │   │  _state/              ✦ NEW       Persistent memory across runs     │
+  │   │  │  ├── memory.jsonl              Append-only run history           │
+  │   │  │  ├── variables.yaml            Cross-stage variables             │
+  │   │  │  └── checkpoints/              Resume from any stage             │
+  │   │  │                                                                  │
+  │   │  _logs/               ✦ NEW       Observability layer               │
+  │   │  │  ├── runs/                     Per-run: tokens, cost, timing     │
+  │   │  │  └── errors/                   Error traces                      │
+  │   │  │                                                                  │
+  │   │  shared/                          Cross-stage resources             │
+  │   │  skills/                          Bundled domain knowledge          │
+  │   │  setup/                                                             │
+  │   │     └── questionnaire.md          One-time onboarding               │
+  │   └─────────────────────────────────────────────────────────────────────┘
+  │
+  │
+  ├── stages/
+  │   │
+  │   │
+  │   │  ╔═══════════════════════════════════════════════════════════╗
+  │   ├──║  01-research/                                            ║
+  │   │  ║  │                                                       ║
+  │   │  ║  ├── CONTEXT.md          Stage contract (role, inputs,   ║
+  │   │  ║  │                       process, expected outputs)      ║
+  │   │  ║  ├── GATE.md    ✦ NEW    Entry: [none — first stage]     ║
+  │   │  ║  │                       Exit:  [sources.md exists,      ║
+  │   │  ║  │                               min 3 references]       ║
+  │   │  ║  ├── references/         Source material for this stage  ║
+  │   │  ║  ├── output/             Deliverables produced here      ║
+  │   │  ║  └── fallback/  ✦ NEW    What to do if stage fails       ║
+  │   │  ╚═══════════════════════════════════════════════════════════╝
+  │   │          │
+  │   │          │  output/ hands off to next stage
+  │   │          ▼
+  │   │     ┌─────────┐
+  │   │     │  ROUTE   │◄──── ROUTER.yaml decides next step
+  │   │     └────┬─────┘
+  │   │          │
+  │   │     ┌────┴──────────────────────────────┐
+  │   │     │                                   │
+  │   │     ▼ condition A (default)             ▼ condition B (skip)
+  │   │                                         │
+  │   │  ╔══════════════════════════════════╗    │
+  │   ├──║  02-analyze/                     ║    │
+  │   │  ║  │                               ║    │
+  │   │  ║  ├── CONTEXT.md                  ║    │
+  │   │  ║  ├── GATE.md    ✦ NEW            ║    │
+  │   │  ║  │   Entry: [01 output exists]   ║    │
+  │   │  ║  │   Exit:  [analysis complete]  ║    │
+  │   │  ║  ├── references/                 ║    │
+  │   │  ║  ├── output/                     ║    │
+  │   │  ║  └── fallback/  ✦ NEW            ║    │
+  │   │  ╚══════════════════════════════════╝    │
+  │   │          │                               │
+  │   │          ▼                               │
+  │   │     ┌─────────┐                          │
+  │   │     │  ROUTE   │                          │
+  │   │     └────┬─────┘                          │
+  │   │          │                               │
+  │   │          ▼◄──────────────────────────────┘
+  │   │                                    (branch rejoins here)
+  │   │
+  │   │  ╔══════════════════════════════════════════════════════════════╗
+  │   │  ║  03-parallel/                    ✦ NEW PATTERN              ║
+  │   │  ║  │                                                          ║
+  │   │  ║  ├── CONTEXT.md     Defines fork/join behavior              ║
+  │   │  ║  │                                                          ║
+  │   │  ║  │   ┌──────────────────────┐  ┌──────────────────────┐     ║
+  │   │  ║  │   │  03a-draft-copy/     │  │  03b-draft-visuals/  │     ║
+  │   │  ║  │   │                      │  │                      │     ║
+  │   ├──║  │   │  ├── CONTEXT.md      │  │  ├── CONTEXT.md      │     ║
+  │   │  ║  │   │  ├── GATE.md  ✦      │  │  ├── GATE.md  ✦      │     ║
+  │   │  ║  │   │  ├── references/     │  │  ├── references/     │     ║
+  │   │  ║  │   │  └── output/         │  │  └── output/         │     ║
+  │   │  ║  │   │                      │  │                      │     ║
+  │   │  ║  │   │    runs at the       │  │    runs at the       │     ║
+  │   │  ║  │   │    same time ◄──────►│  │    same time         │     ║
+  │   │  ║  │   │                      │  │                      │     ║
+  │   │  ║  │   └──────────────────────┘  └──────────────────────┘     ║
+  │   │  ║  │                                                          ║
+  │   │  ║  │          both must complete before moving on             ║
+  │   │  ╚══════════════════════════════════════════════════════════════╝
+  │   │          │
+  │   │          │  joined outputs
+  │   │          ▼
+  │   │
+  │   │  ╔══════════════════════════════════════════════════════════════╗
+  │   │  ║  04-review/                      ✦ ENHANCED                 ║
+  │   │  ║  │                                                          ║
+  │   ├──║  ├── CONTEXT.md                                             ║
+  │   │  ║  ├── GATE.md    ✦ NEW                                       ║
+  │   │  ║  │   Entry: [03a + 03b outputs exist]                       ║
+  │   │  ║  │   Exit:  [quality_score > 0.8, tone matches brand]       ║
+  │   │  ║  ├── references/                                            ║
+  │   │  ║  └── output/                                                ║
+  │   │  ╚══════════════════════════════════════════════════════════════╝
+  │   │          │
+  │   │     ┌────┴──────────────────────────┐
+  │   │     │                               │
+  │   │     ▼ pass                          ▼ reject
+  │   │                                     │
+  │   │                              ┌──────┴───────┐
+  │   │                              │  FEEDBACK     │
+  │   │                              │  LOOP         │
+  │   │                              │               │
+  │   │                              │  routes back  │
+  │   │                              │  to stage 03  │──────────────┐
+  │   │                              │  via ROUTER   │              │
+  │   │                              │  reject_to    │              │
+  │   │                              └───────────────┘              │
+  │   │                                                             │
+  │   │          │◄─────────────────────────────────────────────────┘
+  │   │          │                          (redo with feedback)
+  │   │          ▼
+  │   │
+  │   │  ╔══════════════════════════════════════════════════════════════╗
+  │   └──║  05-production/                                             ║
+  │      ║  │                                                          ║
+  │      ║  ├── CONTEXT.md                                             ║
+  │      ║  ├── GATE.md    ✦ NEW                                       ║
+  │      ║  │   Entry: [04 approved]                                   ║
+  │      ║  │   Exit:  [final deliverable complete]                    ║
+  │      ║  ├── references/                                            ║
+  │      ║  └── output/            ◄── FINAL DELIVERABLE               ║
+  │      ╚══════════════════════════════════════════════════════════════╝
+  │
+  │
+  └── done.
+
+
+══════════════════════════════════════════════════════════════════════════════════
+                         ROUTER.yaml (example)
+══════════════════════════════════════════════════════════════════════════════════
+
+  stages:
+    01-research:
+      next: 02-analyze
+      branch_if:
+        condition: output_contains("skip_analysis")
+        then: 03-parallel
+      max_retries: 2
+      on_fail: fallback
+
+    02-analyze:
+      next: 03-parallel
+
+    03-parallel:
+      mode: parallel
+      sub_stages:
+        - 03a-draft-copy
+        - 03b-draft-visuals
+      join: all                         # wait for all sub-stages
+      next: 04-review
+
+    04-review:
+      next: 05-production
+      reject_to: 03-parallel           # feedback loop
+      max_rejections: 2                 # give up after 2 round-trips
+
+    05-production:
+      next: done
+
+
+══════════════════════════════════════════════════════════════════════════════════
+                         GATE.md (template)
+══════════════════════════════════════════════════════════════════════════════════
+
+  # Gate — [Stage Name]
+
+  ## Entry Conditions
+  - [ ] Required input files exist in previous stage's output/
+  - [ ] Variables in _state/variables.yaml are set
+
+  ## Exit Criteria
+  - [ ] Output meets quality threshold
+  - [ ] All required deliverables written to output/
+  - [ ] No unresolved errors in _logs/errors/
+
+  ## On Failure
+  - Retry up to max_retries (from ROUTER.yaml)
+  - If retries exhausted → execute fallback/ instructions
+  - Log failure to _logs/errors/
+
+
+══════════════════════════════════════════════════════════════════════════════════
+                    WHAT'S KEPT vs WHAT'S ADDED
+══════════════════════════════════════════════════════════════════════════════════
+
+  KEPT FROM ICM (Van Clief)              ADDED (Extended)
+  ─────────────────────────              ──────────────────────────
+  ✓ Minimal context loading              ✦ ROUTER.yaml (conditional DAG)
+  ✓ Single source of truth               ✦ GATE.md (stage validation)
+  ✓ One-way references                   ✦ Parallel stage groups
+  ✓ Filesystem = orchestration           ✦ Feedback loops (reject_to)
+  ✓ CONTEXT.md contracts                 ✦ fallback/ (error recovery)
+  ✓ Numbered stage ordering              ✦ _tools/ (agent capabilities)
+  ✓ Human review between stages          ✦ _state/ (memory + checkpoints)
+  ✓ shared/ + skills/ + _config/         ✦ _logs/ (observability + cost)
+
+
+══════════════════════════════════════════════════════════════════════════════════
