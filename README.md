@@ -41,3 +41,9 @@ I spend most of my time on the applied side of LLMs: getting them to reliably do
 - Evaluation frameworks for RAG accuracy (beyond just vibes)
 - Cost optimization at scale: batching, caching, model routing
 - Moving agent prototypes into production-grade services
+
+## ICM File Structure Reference
+
+I've been exploring Jake Van Clief's [Interpreted Context Methodology](https://arxiv.org/abs/2603.16021) — using folder structure as agentic architecture instead of framework-level orchestration. One agent, sequential stages, markdown contracts at every level.
+
+![ICM File Structure](icm-file-structure.svg)

@@ -1,0 +1,164 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 720" font-family="'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0d1117"/>
+      <stop offset="100%" style="stop-color:#161b22"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1c2333"/>
+      <stop offset="100%" style="stop-color:#151b28"/>
+    </linearGradient>
+    <linearGradient id="stage" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#1f6feb"/>
+      <stop offset="100%" style="stop-color:#388bfd"/>
+    </linearGradient>
+    <linearGradient id="config" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#8b5cf6"/>
+      <stop offset="100%" style="stop-color:#a78bfa"/>
+    </linearGradient>
+    <linearGradient id="shared" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#f59e0b"/>
+      <stop offset="100%" style="stop-color:#fbbf24"/>
+    </linearGradient>
+    <linearGradient id="output" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#10b981"/>
+      <stop offset="100%" style="stop-color:#34d399"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="720" fill="url(#bg)" rx="12"/>
+
+  <!-- Title -->
+  <text x="450" y="42" text-anchor="middle" fill="#e6edf3" font-size="20" font-weight="700" letter-spacing="0.5">Interpreted Context Methodology (ICM)</text>
+  <text x="450" y="64" text-anchor="middle" fill="#7d8590" font-size="13">Jake Van Clief's Model Workspace Protocol — Folder Structure as Agentic Architecture</text>
+
+  <!-- Root workspace card -->
+  <rect x="30" y="84" width="840" height="620" rx="10" fill="url(#card)" stroke="#30363d" stroke-width="1" filter="url(#shadow)"/>
+
+  <!-- workspace/ label -->
+  <text x="52" y="112" fill="#e6edf3" font-size="15" font-weight="600">📂 workspace/</text>
+  <rect x="178" y="98" width="100" height="20" rx="4" fill="#1f6feb" opacity="0.2"/>
+  <text x="228" y="112" text-anchor="middle" fill="#58a6ff" font-size="11" font-weight="500">root</text>
+
+  <!-- CONTEXT.md (root) -->
+  <rect x="60" y="126" width="260" height="36" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+  <text x="78" y="149" fill="#7ee787" font-size="13" font-weight="600">📄 CONTEXT.md</text>
+  <text x="202" y="149" fill="#7d8590" font-size="11">→ Root task routing</text>
+
+  <!-- Stages section -->
+  <rect x="60" y="176" width="520" height="340" rx="8" fill="#0d1117" stroke="#1f6feb" stroke-width="1" opacity="0.9"/>
+  <text x="80" y="200" fill="#58a6ff" font-size="14" font-weight="700">📁 stages/</text>
+  <text x="170" y="200" fill="#7d8590" font-size="11">— Numbered folders enforce execution order</text>
+
+  <!-- Stage 01 -->
+  <rect x="82" y="214" width="480" height="88" rx="6" fill="#151b28" stroke="#1f6feb" stroke-width="0.5"/>
+  <rect x="82" y="214" width="4" height="88" rx="2" fill="url(#stage)"/>
+  <text x="100" y="236" fill="#58a6ff" font-size="13" font-weight="600">📁 01-research/</text>
+  <text x="100" y="258" fill="#7ee787" font-size="12">📄 CONTEXT.md</text>
+  <text x="230" y="258" fill="#7d8590" font-size="11">Stage contract: inputs, process, outputs</text>
+  <text x="100" y="278" fill="#d2a8ff" font-size="12">📁 references/</text>
+  <text x="230" y="278" fill="#7d8590" font-size="11">Reference material for this stage</text>
+  <text x="100" y="298" fill="#3fb950" font-size="12">📁 output/</text>
+  <text x="230" y="298" fill="#7d8590" font-size="11">Deliverables → handed to next stage</text>
+
+  <!-- Arrow between stages -->
+  <path d="M322 306 L322 318" stroke="#3fb950" stroke-width="2" marker-end="url(#arrowGreen)"/>
+  <defs>
+    <marker id="arrowGreen" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6" fill="#3fb950"/>
+    </marker>
+  </defs>
+
+  <!-- Stage 02 -->
+  <rect x="82" y="322" width="480" height="88" rx="6" fill="#151b28" stroke="#1f6feb" stroke-width="0.5"/>
+  <rect x="82" y="322" width="4" height="88" rx="2" fill="url(#stage)"/>
+  <text x="100" y="344" fill="#58a6ff" font-size="13" font-weight="600">📁 02-script/</text>
+  <text x="100" y="366" fill="#7ee787" font-size="12">📄 CONTEXT.md</text>
+  <text x="230" y="366" fill="#7d8590" font-size="11">Stage contract: inputs, process, outputs</text>
+  <text x="100" y="386" fill="#d2a8ff" font-size="12">📁 references/</text>
+  <text x="100" y="406" fill="#3fb950" font-size="12">📁 output/</text>
+  <text x="230" y="406" fill="#7d8590" font-size="11">Deliverables → handed to next stage</text>
+
+  <!-- Arrow between stages -->
+  <path d="M322 414 L322 426" stroke="#3fb950" stroke-width="2" marker-end="url(#arrowGreen)"/>
+
+  <!-- Stage 03 -->
+  <rect x="82" y="430" width="480" height="72" rx="6" fill="#151b28" stroke="#1f6feb" stroke-width="0.5"/>
+  <rect x="82" y="430" width="4" height="72" rx="2" fill="url(#stage)"/>
+  <text x="100" y="452" fill="#58a6ff" font-size="13" font-weight="600">📁 03-production/</text>
+  <text x="100" y="474" fill="#7ee787" font-size="12">📄 CONTEXT.md</text>
+  <text x="230" y="474" fill="#7d8590" font-size="11">+ references/ + output/</text>
+  <text x="410" y="452" fill="#3fb950" font-size="11" font-weight="500">✓ Final deliverable</text>
+
+  <!-- Right side panels -->
+
+  <!-- _config/ -->
+  <rect x="600" y="176" width="258" height="80" rx="8" fill="#0d1117" stroke="#8b5cf6" stroke-width="1"/>
+  <rect x="600" y="176" width="4" height="80" rx="2" fill="url(#config)"/>
+  <text x="618" y="200" fill="#d2a8ff" font-size="14" font-weight="700">📁 _config/</text>
+  <text x="618" y="220" fill="#7d8590" font-size="11">Brand, voice, design system</text>
+  <text x="618" y="240" fill="#7d8590" font-size="11">Configured once, reused everywhere</text>
+
+  <!-- shared/ -->
+  <rect x="600" y="270" width="258" height="80" rx="8" fill="#0d1117" stroke="#f59e0b" stroke-width="1"/>
+  <rect x="600" y="270" width="4" height="80" rx="2" fill="url(#shared)"/>
+  <text x="618" y="294" fill="#fbbf24" font-size="14" font-weight="700">📁 shared/</text>
+  <text x="618" y="314" fill="#7d8590" font-size="11">Cross-stage resources</text>
+  <text x="618" y="334" fill="#7d8590" font-size="11">Referenced (not copied) by stages</text>
+
+  <!-- skills/ -->
+  <rect x="600" y="364" width="258" height="80" rx="8" fill="#0d1117" stroke="#f97316" stroke-width="1"/>
+  <rect x="600" y="364" width="4" height="80" rx="2" fill="#f97316"/>
+  <text x="618" y="388" fill="#fb923c" font-size="14" font-weight="700">📁 skills/</text>
+  <text x="618" y="408" fill="#7d8590" font-size="11">Bundled domain knowledge</text>
+  <text x="618" y="428" fill="#7d8590" font-size="11">Reusable prompt patterns</text>
+
+  <!-- setup/ -->
+  <rect x="600" y="458" width="258" height="58" rx="8" fill="#0d1117" stroke="#6e7681" stroke-width="1"/>
+  <rect x="600" y="458" width="4" height="58" rx="2" fill="#6e7681"/>
+  <text x="618" y="482" fill="#8b949e" font-size="14" font-weight="700">📁 setup/</text>
+  <text x="618" y="502" fill="#7d8590" font-size="11">questionnaire.md — one-time onboarding</text>
+
+  <!-- Key principles bar -->
+  <rect x="60" y="530" width="798" height="160" rx="8" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+  <text x="80" y="556" fill="#e6edf3" font-size="13" font-weight="700">Key Principles</text>
+
+  <!-- Principle pills -->
+  <rect x="80" y="568" width="230" height="50" rx="6" fill="#151b28" stroke="#30363d" stroke-width="0.5"/>
+  <text x="96" y="588" fill="#58a6ff" font-size="11" font-weight="600">🎯 One stage, one job</text>
+  <text x="96" y="606" fill="#7d8590" font-size="10">Research ≠ write ≠ build</text>
+
+  <rect x="322" y="568" width="250" height="50" rx="6" fill="#151b28" stroke="#30363d" stroke-width="0.5"/>
+  <text x="338" y="588" fill="#7ee787" font-size="11" font-weight="600">📌 Single source of truth</text>
+  <text x="338" y="606" fill="#7d8590" font-size="10">Point to data, never copy it</text>
+
+  <rect x="584" y="568" width="256" height="50" rx="6" fill="#151b28" stroke="#30363d" stroke-width="0.5"/>
+  <text x="600" y="588" fill="#fbbf24" font-size="11" font-weight="600">🧠 Minimal context loading</text>
+  <text x="600" y="606" fill="#7d8590" font-size="10">Extra tokens = noise, not neutral</text>
+
+  <rect x="80" y="628" width="230" height="50" rx="6" fill="#151b28" stroke="#30363d" stroke-width="0.5"/>
+  <text x="96" y="648" fill="#d2a8ff" font-size="11" font-weight="600">➡️ One-way references</text>
+  <text x="96" y="666" fill="#7d8590" font-size="10">O(n) scaling, not O(n²)</text>
+
+  <rect x="322" y="628" width="250" height="50" rx="6" fill="#151b28" stroke="#30363d" stroke-width="0.5"/>
+  <text x="338" y="648" fill="#3fb950" font-size="11" font-weight="600">🔄 Output as handoff</text>
+  <text x="338" y="666" fill="#7d8590" font-size="10">Human review between stages</text>
+
+  <rect x="584" y="628" width="256" height="50" rx="6" fill="#151b28" stroke="#30363d" stroke-width="0.5"/>
+  <text x="600" y="648" fill="#f97316" font-size="11" font-weight="600">📂 Filesystem = orchestration</text>
+  <text x="600" y="666" fill="#7d8590" font-size="10">No framework code needed</text>
+
+  <!-- Attribution -->
+  <text x="450" y="714" text-anchor="middle" fill="#484f58" font-size="10">Based on Jake Van Clief's ICM / Model Workspace Protocol (arXiv: 2603.16021) — MIT License</text>
+</svg>
